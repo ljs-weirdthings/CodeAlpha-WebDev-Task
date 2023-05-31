@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    .container {
+      width: 300px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 5px;
+    }
+    .btn {
+      display: block;
+      width: 105%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Temperature Converter</h1>
+  <div class="container">
+    <div class="form-group">
+      <label for="celsius">Celsius:</label>
+      <input type="number" id="celsius" placeholder="Enter temperature in Celsius">
+    </div>
+    <div class="form-group">
+      <label for="fahrenheit">Fahrenheit:</label>
+      <input type="number" id="fahrenheit" placeholder="Enter temperature in Fahrenheit">
+    </div>
+    <div class="form-group">
+      <label for="kelvin">Kelvin:</label>
+      <input type="number" id="kelvin" placeholder="Enter temperature in Kelvin">
+    </div>
+    <div class="form-group">
+      <label for="rankine">Rankine:</label>
+      <input type="number" id="rankine" placeholder="Enter temperature in Rankine">
+    </div>
+    <button class="btn" onclick="convertTemperature()">Convert</button>
+    <div class="result" id="result"></div>
+    <div class="form-group">
+      <button class="btn" onclick="convertToCelsius()">Convert to Celsius</button>
+      <button class="btn" onclick="convertToFahrenheit()">Convert to Fahrenheit</button>
+      <button class="btn" onclick="convertToKelvin()">Convert to Kelvin</button>
+      <button class="btn" onclick="convertToRankine()">Convert to Rankine</button>
+      <button class="btn" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      var celsiusInput = document.getElementById("celsius");
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      var kelvinInput = document.getElementById("kelvin");
+      var rankineInput = document.getElementById("rankine");
+      var resultElement = document.getElementById("result");
+      
+      if (celsiusInput.value !== "") {
+        var celsius = parseFloat(celsiusInput.value);
+        var fahrenheit = celsius * 9/5 + 32;
+        var kelvin = celsius + 273.15;
+        var rankine = (celsius + 273.15) * 9/5;
+        
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+        kelvinInput.value = kelvin.toFixed(2);
+        rankineInput.value = rankine.toFixed(2);
+        
+        resultElement.innerHTML = celsius + " degrees Celsius is equal to " +
+          fahrenheit.toFixed(2) + " degrees Fahrenheit, " +
+          kelvin.toFixed(2) + " Kelvin, and " +
+          rankine.toFixed(2) + " Rankine.";
+      } else if (fahrenheitInput.value !== "") {
+        var fahrenheit = parseFloat(fahrenheitInput.value);
+        var celsius = (fahrenheit - 32) * 5/9;
+        var kelvin = (fahrenheit + 459.67) * 5/9;
+        var rankine = fahrenheit + 459.67;
+        
+        celsiusInput.value = celsius.toFixed(2);
+        kelvinInput.value = kelvin.toFixed(2);
+        rankineInput.value = rankine.toFixed(2);
+        
+        resultElement.innerHTML = fahrenheit + " degrees Fahrenheit is equal to " +
+          celsius.toFixed(2) + " degrees Celsius, " +
+          kelvin.toFixed(2) + " Kelvin, and " +
+          rankine.toFixed(2) + " Rankine.";
+      } else if (kelvinInput.value !== "") {
+        var kelvin = parseFloat(kelvinInput.value);
+        var celsius = kelvin - 273.15;
+        var fahrenheit = kelvin * 9/5 - 459.67;
+        var rankine = kelvin * 9/5;
+        
+        celsiusInput.value = celsius.toFixed(2);
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+        rankineInput.value = rankine.toFixed(2);
+        
+        resultElement.innerHTML = kelvin + " Kelvin is equal to " +
+          celsius.toFixed(2) + " degrees Celsius, " +
+          fahrenheit.toFixed(2) + " degrees Fahrenheit, and " +
+          rankine.toFixed(2) + " Rankine.";
+      } else if (rankineInput.value !== "") {
+        var rankine = parseFloat(rankineInput.value);
+        var kelvin = rankine * 5/9;
+        var celsius = kelvin - 273.15;
+        var fahrenheit = rankine - 459.67;
+        
+        kelvinInput.value = kelvin.toFixed(2);
+        celsiusInput.value = celsius.toFixed(2);
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+        
+        resultElement.innerHTML = rankine + " Rankine is equal to " +
+          celsius.toFixed(2) + " degrees Celsius, " +
+          fahrenheit.toFixed(2) + " degrees Fahrenheit, and " +
+          kelvin.toFixed(2) + " Kelvin.";
+      } else {
+        resultElement.innerHTML = "Please enter a temperature.";
+      }
+    }
+    
+    function convertToCelsius() {
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      var kelvinInput = document.getElementById("kelvin");
+      var rankineInput = document.getElementById("rankine");
+      var celsiusInput = document.getElementById("celsius");
+      
+      if (fahrenheitInput.value !== "") {
+        var fahrenheit = parseFloat(fahrenheitInput.value);
+        var celsius = (fahrenheit - 32) * 5/9;
+        celsiusInput.value = celsius.toFixed(2);
+      } else if (kelvinInput.value !== "") {
+        var kelvin = parseFloat(kelvinInput.value);
+        var celsius = kelvin - 273.15;
+        celsiusInput.value = celsius.toFixed(2);
+      } else if (rankineInput.value !== "") {
+        var rankine = parseFloat(rankineInput.value);
+        var kelvin = rankine * 5/9;
+        var celsius = kelvin - 273.15;
+        celsiusInput.value = celsius.toFixed(2);
+      }
+    }
+    
+    function convertToFahrenheit() {
+      var celsiusInput = document.getElementById("celsius");
+      var kelvinInput = document.getElementById("kelvin");
+      var rankineInput = document.getElementById("rankine");
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      
+      if (celsiusInput.value !== "") {
+        var celsius = parseFloat(celsiusInput.value);
+        var fahrenheit = celsius * 9/5 + 32;
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+      } else if (kelvinInput.value !== "") {
+        var kelvin = parseFloat(kelvinInput.value);
+        var fahrenheit = kelvin * 9/5 - 459.67;
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+      } else if (rankineInput.value !== "") {
+        var rankine = parseFloat(rankineInput.value);
+        var fahrenheit = rankine - 459.67;
+        fahrenheitInput.value = fahrenheit.toFixed(2);
+      }
+    }
+    
+    function convertToKelvin() {
+      var celsiusInput = document.getElementById("celsius");
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      var rankineInput = document.getElementById("rankine");
+      var kelvinInput = document.getElementById("kelvin");
+      
+      if (celsiusInput.value !== "") {
+        var celsius = parseFloat(celsiusInput.value);
+        var kelvin = celsius + 273.15;
+        kelvinInput.value = kelvin.toFixed(2);
+      } else if (fahrenheitInput.value !== "") {
+        var fahrenheit = parseFloat(fahrenheitInput.value);
+        var kelvin = (fahrenheit + 459.67) * 5/9;
+        kelvinInput.value = kelvin.toFixed(2);
+      } else if (rankineInput.value !== "") {
+        var rankine = parseFloat(rankineInput.value);
+        var kelvin = rankine * 5/9;
+        kelvinInput.value = kelvin.toFixed(2);
+      }
+    }
+    
+    function convertToRankine() {
+      var celsiusInput = document.getElementById("celsius");
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      var kelvinInput = document.getElementById("kelvin");
+      var rankineInput = document.getElementById("rankine");
+      
+      if (celsiusInput.value !== "") {
+        var celsius = parseFloat(celsiusInput.value);
+        var rankine = (celsius + 273.15) * 9/5;
+        rankineInput.value = rankine.toFixed(2);
+      } else if (fahrenheitInput.value !== "") {
+        var fahrenheit = parseFloat(fahrenheitInput.value);
+        var rankine = fahrenheit + 459.67;
+        rankineInput.value = rankine.toFixed(2);
+      } else if (kelvinInput.value !== "") {
+        var kelvin = parseFloat(kelvinInput.value);
+        var rankine = kelvin * 9/5;
+        rankineInput.value = rankine.toFixed(2);
+      }
+    }
+
+    function clearAll() {
+      var celsiusInput = document.getElementById("celsius");
+      var fahrenheitInput = document.getElementById("fahrenheit");
+      var kelvinInput = document.getElementById("kelvin");
+      var rankineInput = document.getElementById("rankine");
+      var resultElement = document.getElementById("result");
+
+      celsiusInput.value = "";
+      fahrenheitInput.value = "";
+      kelvinInput.value = "";
+      rankineInput.value = "";
+      resultElement.innerHTML = "";
+    }
+  </script>
+</body>
+</html>
